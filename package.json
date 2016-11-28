@@ -1,0 +1,11 @@
+{
+  "name": "guest-interface",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "author": "Peter Stakoun",
+  "dependencies": {
+    "express": "^4.14.0",
+    "pug": "^2.0.0-beta6"
+  }
+}
