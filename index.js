@@ -29,6 +29,10 @@ app.get('/create', function(req, res) {
 });
 
 app.post('/create', function(req, res) {
+	if (!(req.body.email && req.body.name)) {
+		res.send('ERROR');
+		return;
+	} 
 	exec('./create-guest.sh ' + req.body.email.replace(/\s+/g, '-').toLowerCase() + ' ' + req.body.name.replace(/\s+/g, '-').toLowerCase(), function(error, stdout, stderr) {
 		console.log('stdout: ' + stdout);
 		console.log('stderr: ' + stderr);
