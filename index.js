@@ -13,22 +13,22 @@ app.get('/', function(req, res) {
 	res.render('index');
 });
 
-app.get('/admin', function(req, res) {
+app.get('/guests', function(req, res) {
 	exec('./list-guests.sh', function(error, stdout, stderr) {
 		console.log('stdout: ' + stdout);
 		console.log('stderr: ' + stderr);
 		if (error !== null) {
 			console.log('error: ' + error);
 		}
-		res.render('admin', { list: stdout });
+		res.render('guests', { list: stdout });
 	});
 });
 
-app.get('/create', function(req, res) {
-	res.render('create');
+app.get('/guests/create', function(req, res) {
+	res.render('guests-create');
 });
 
-app.post('/create', function(req, res) {
+app.post('/guests/create', function(req, res) {
 	if (!(req.body.email && req.body.name)) {
 		res.send('ERROR');
 		return;
