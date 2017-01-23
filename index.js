@@ -13,6 +13,36 @@ app.get('/', function(req, res) {
 	res.render('index');
 });
 
+app.get('/images', function(req, res) {
+	exec('./list-images.sh', function(error, stdout, stderr) {
+		console.log('stdout: ' + stdout);
+		console.log('stderr: ' + stderr);
+		if (error !== null) {
+			console.log('error: ' + error);
+		}
+		res.render('images', { list: stdout });
+	});
+});
+
+app.get('/images/create', function(req, res) {
+	res.render('images-create');
+});
+
+app.post('/images/create', function(req, res) {
+	if (!(req.body.email && req.body.name)) {
+		res.send('ERROR');
+		return;
+	} 
+	exec('./create-image.sh ' + req.body.email.replace(/\s+/g, '-').toLowerCase() + ' ' + req.body.name.replace(/\s+/g, '-').toLowerCase(), function(error, stdout, stderr) {
+		console.log('stdout: ' + stdout);
+		console.log('stderr: ' + stderr);
+		if (error !== null) {
+			console.log('error: ' + error);
+		}
+	});
+	res.send('VM image created.');
+});
+
 app.get('/guests', function(req, res) {
 	exec('./list-guests.sh', function(error, stdout, stderr) {
 		console.log('stdout: ' + stdout);
